@@ -1,0 +1,52 @@
+﻿@model TrainerSystem.ViewModels.DogFormViewModel
+@{
+    ViewBag.Title = "פרטי כלב";
+    Layout = "~/Views/Shared/_TrainerLayout.cshtml";
+    var size = Model.DogSizes.SingleOrDefault(s => s.Id == Model.Dog.DogSizeId);
+    var sizeName = "";
+    if (size != null){sizeName = size.Name;}
+    else{sizeName = "חסר";}
+
+    var race = Model.Races.SingleOrDefault(r => r.Id == Model.Dog.RaceId);
+    var raceName = "";
+    if (race != null){ raceName = race.Name;}
+    else{ raceName = "חסר";}
+
+    var onwer = Model.Customers.SingleOrDefault(c => c.Id == Model.Dog.CustomerId);
+    var onwerName = "";
+    if (onwer != null){ onwerName = onwer.Name;}
+    else{ onwerName = "חסר";}
+
+    var gander = Model.Genders.SingleOrDefault(g => g.Id == Model.Dog.Sex);
+    var ganderName = "";
+    if (gander != null){ ganderName = gander.Name;}
+    else{ ganderName = "חסר";}
+
+    var sterilized = "";
+    if (Model.Dog.Sterilized){sterilized = "כן";}
+    else { sterilized = "לא"; }
+
+}
+<h2>@ViewBag.Title</h2>
+
+<div class="mt-4">
+    <table class="table table-hover table-bordered col-4 ">
+        <tbody>
+            <tr><th>שם</th><td>@Model.Dog.Name</td></tr>
+            <tr><th>בעלים</th><td>@Html.ActionLink(onwerName, "Details", "Customers", new { @id = Model.Dog.CustomerId }, new { @class = "" })</td></tr>
+            <tr><th>מזון</th><td>@Model.Dog.FoodType</td></tr>
+            <tr><th>גודל</th><td>@sizeName</td></tr>
+            <tr><th>מסורס/מעוקר</th><td>@sterilized</td></tr>
+            <tr><th>גזע</th><td>@raceName</td></tr>
+            <tr><th>מין</th><td>@ganderName</td></tr>
+            <tr><th>וטרינר</th><td>@Model.Dog.VeterinarianName</td></tr>
+            <tr><th>משקל</th><td>@Model.Dog.Weight</td></tr>
+            <tr><th>תאריך לידה</th><td>@Model.Dog.Birthdate.Value.ToShortDateString()</td></tr>
+            <tr><th>תאריך יצירה</th><td>@Model.Dog.CreateDate.ToShortDateString()</td></tr>
+            <tr><th>הערה</th><td>@Model.Dog.Note</td></tr>
+        </tbody>
+    </table>
+</div>
+@Html.ActionLink("עריכה", "Edit", "Dogs", new {@id = Model.Dog.Id }, new { @class = "btn btn-warning" })
+@Html.ActionLink("חיסונים", "Dog", "Vaccines", new { @id = Model.Dog.Id }, new { @class = "btn btn-warning" })
+

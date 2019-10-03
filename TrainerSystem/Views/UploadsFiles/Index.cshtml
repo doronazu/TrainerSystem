@@ -1,0 +1,120 @@
+﻿@using TrainerSystem.Models.Application.UploadSystem
+@model List<TrainerSystem.Models.Application.AppFile>
+@{
+    ViewBag.Title = "העלאות";
+    Layout = "~/Views/Shared/_TrainerLayout.cshtml";
+}
+
+<h2>@ViewBag.Title</h2>
+
+@Html.Partial("_Uploader", new FileUpload())
+
+<div class="mt-2">
+    <table class="table table-hover table-borderless text-center">
+        <thead>
+            <tr class="table-primary">
+                <th>שם</th>
+                <th>סוג</th>
+                <th>שלח</th>
+                <th colspan="2">נהל</th>
+            </tr>
+        </thead>
+        <tbody>
+        @foreach (var file in Model)
+        {
+            var pathArray = file.FilePath.Split('/');
+            var fileName = pathArray[pathArray.Length - 1];
+            var index = fileName.IndexOf("--trainerApp--");
+            var name = fileName.Remove(index);
+
+
+            <tr>
+                <td class="text-right">@name</td>
+                <td>@file.Type</td>
+                <td></td>
+                <td><a class="btn btn-info" href="@file.FilePath" download="@name">הורדה</a></td>
+                <td>
+                    @using (Html.BeginForm("Delete", "UploadsFiles", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                    {
+                        <input type="hidden" class="hide" name="id" id="id" value="@file.Id" />
+                        <button type="submit" class="btn btn-danger">מחיקה</button>
+                    }
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>
+
+
+@section scripts
+{
+    <script>
+        function bytesToSize(bytes) {
+            var sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+            if (bytes == 0) return '0 Byte';
+            var i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)));
+            return Math.round(bytes / Math.pow(1024, i), 2) + ' ' + sizes[i];
+        }
+        var loadFile = function (event) {
+            $("#dynamicFiles").empty();
+            $("#fileText").text("בחר קובץ");
+            $("#upload").attr("disabled", "");
+            var files = event.target.files;
+            for (var i = 0; i < files.length; i++) {
+                var typeShort = files[i].type.split('/').slice(0, -1).join('/');
+                var typeFull = files[i].type;
+                var size = files[i].size;
+                if (size >= 6743360) {//error
+                    $("#error").css("display", "");
+                    continue;
+                }
+                $("#error").css("display", "none");
+                $("#fileText").text(files[i].name);
+                //$("#dynamicImage").append("<img src='" + URL.createObjectURL(event.target.files[i]) + "' class='dynamicimage'/><br>");
+                var card = $("#copyFile").clone();
+                if (typeShort === "image") {
+                    card.find(".fileImage").attr("src", URL.createObjectURL(event.target.files[i]));
+                } else if (typeFull === "text/plain") {
+                } else if (typeFull === "application/msword") {
+                } else {
+
+                    continue;
+                }
+                card.attr("id", "");
+                card.find(".fileName").text(files[i].name.split('.').slice(0, -1).join('.'));
+                card.find(".fileType").text(files[i].type);
+                card.find(".fileSize").text(bytesToSize(size));
+                $("#dynamicFiles").append(card);
+                card.css("display", "");
+                $("#upload").removeAttr("disabled");
+
+            }
+            setJsDel();
+        }
+
+        function setJsDel() {
+            var jsDel = $(".js-del");
+            jsDel.each(function () {
+                $(this)
+                    .mouseenter(function () {
+                        $(this).addClass("text-white");
+                    });
+                $(this)
+                    .mouseleave(function () {
+                        $(this).removeClass("text-white");
+                    });
+                $(this)
+                    .click(function () {
+                        $(this).closest(".card").remove();
+                        $("#fileText").text("בחר קובץ");
+                        $("#file").val("");
+                        $("#upload").attr("disabled", "");
+
+                    });
+            });
+        }
+    </script>
+
+}
+

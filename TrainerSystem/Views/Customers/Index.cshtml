@@ -1,0 +1,45 @@
+﻿@model IEnumerable<TrainerSystem.Models.Application.Customer>
+@{
+    ViewBag.Title = "לקוחות";
+    Layout = "~/Views/Shared/_TrainerLayout.cshtml";
+}
+
+<h2>@ViewBag.Title</h2>
+
+@Html.ActionLink("לקוח חדש","New","Customers",new{@class = "btn btn-primary" })
+
+<div class="mt-2">
+    <table class="table table-hover table-borderless text-center">
+        <thead>
+            <tr class="table-primary">
+                <th>שם לקוח</th>
+                <th>פלאפון</th>
+                <th>עיר</th>
+                <th>מייל</th>
+                <th>כלבים</th>
+                <th colspan="2">נהל</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var customer in Model)
+            {
+            <tr class="align-middle">
+                <td><a href="/Customers/Details/@customer.Id" class="btn btn-link">@customer.Name</a></td>
+                <td class="align-middle">@customer.Phone</td>
+                <td class="align-middle">@customer.City</td>
+                <td class="align-middle">@customer.Email</td>
+                <td class="align-middle">@customer.DogList.Count</td>
+                <td><a href="/Customers/Edit/@customer.Id" class="btn btn-warning">עריכה</a></td>
+                <td>
+                    @using (Html.BeginForm("Delete", "Customers", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                    {
+                        <input type="hidden" class="hide" name="id" id="id" value="@customer.Id" />
+                        <button type="submit" class="btn btn-danger">מחיקה</button>
+                    }
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>
+

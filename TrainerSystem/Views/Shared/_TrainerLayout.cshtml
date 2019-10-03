@@ -1,0 +1,25 @@
+﻿<!DOCTYPE html>
+<html dir="rtl">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>עמוד @ViewBag.Title - מאלפים</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <script src="https://kit.fontawesome.com/a09be22d0f.js" crossorigin="anonymous"></script>
+
+</head>
+<body class="text-right">
+    @Html.Partial("_NavBarTrainer")
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p> &copy; מאלפים - @DateTime.Now.Year </p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/lib")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

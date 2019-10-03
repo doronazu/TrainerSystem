@@ -1,0 +1,38 @@
+﻿@model IEnumerable<TrainerSystem.Models.Application.Race>
+@{
+    ViewBag.Title = "גזעים";
+    Layout = "~/Views/Shared/_TrainerLayout.cshtml";
+}
+
+<h2>@ViewBag.Title</h2>
+
+
+@Html.ActionLink("גזע חדש", "New", "DogRace", new { @class = "btn btn-primary" })
+
+<div class="mt-2">
+    <table class="table table-hover table-borderless text-center">
+        <thead>
+            <tr class="table-primary">
+                <th>שם</th>
+                <th colspan="2">נהל</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var race in Model)
+            {
+                <tr class="align-middle">
+                    <td><a href="/DogsRace/Details/@race.Id" class="btn btn-link">@race.Name</a></td>
+                    <td><a href="/DogsRace/Edit/@race.Id" class="btn btn-warning">עריכה</a></td>
+                    <td>
+                        @using (Html.BeginForm("Delete", "DogsRace", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                        {
+                            <input type="hidden" class="hide" name="id" id="id" value="@race.Id" />
+                            <button type="submit" class="btn btn-danger">מחיקה</button>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+

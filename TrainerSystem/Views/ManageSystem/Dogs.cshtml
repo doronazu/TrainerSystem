@@ -1,0 +1,12 @@
+﻿
+@{
+    ViewBag.Title = "כלבים";
+    Layout = "~/Views/Shared/_TrainerLayout.cshtml";
+}
+
+<h2>@ViewBag.Title</h2>
+
+
+@Html.ActionLink("גזעים", "Index", "DogsRace", null, new { @class = "btn btn-outline-info" })
+@Html.ActionLink("גדלים", "Index", "DogsSize", null, new { @class = "btn btn-outline-info" })
+

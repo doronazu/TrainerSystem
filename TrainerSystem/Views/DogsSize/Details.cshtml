@@ -1,0 +1,20 @@
+﻿@model TrainerSystem.Models.Application.DogSize
+@{
+    ViewBag.Title = "פרטי גודל";
+    Layout = "~/Views/Shared/_TrainerLayout.cshtml";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<div class="mt-4">
+    <table class="table table-hover table-bordered col-4 ">
+        <tbody>
+            <tr><th>שם</th><td>@Model.Name</td></tr>
+            <tr><th>תאריך יצירה</th><td>@Model.CreateDate.ToShortDateString()</td></tr>
+        </tbody>
+    </table>
+</div>
+@Html.ActionLink("עריכה", "Edit", "DogsSize", new { @id = @Model.Id }, new { @class = "btn btn-warning" })
+
+
+

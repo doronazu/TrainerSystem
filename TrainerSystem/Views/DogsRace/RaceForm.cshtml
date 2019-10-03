@@ -1,0 +1,43 @@
+﻿@model TrainerSystem.Models.Application.Race
+@{
+    Layout = "~/Views/Shared/_TrainerLayout.cshtml";
+
+    ViewBag.Title = "טופס גזע";
+    string btnValue = "שמור שינויים";
+    string header = "עדכן גזע";
+    string header2 = "ערוך גזע קיים";
+    if (Model.Id == 0)
+    {
+        header = "יצירת גזע";
+        header2 = "יצירת גזע חדש.";
+        btnValue = "צור גזע";
+    }
+}
+
+<h2>@header</h2>
+
+@using (Html.BeginForm("Save", "DogsRace", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    <h4>@header2</h4>
+    <hr />
+    @Html.ValidationSummary("", new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.LabelFor(m => m.Name, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+        </div>
+    </div>
+    @Html.HiddenFor(p => p.Id)
+    @Html.HiddenFor(p => p.CreateDate)
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" class="btn btn-outline-primary" value="@btnValue" />
+        </div>
+    </div>
+}
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

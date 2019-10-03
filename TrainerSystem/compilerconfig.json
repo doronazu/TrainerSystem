@@ -1,0 +1,14 @@
+﻿[
+  {
+    "outputFile": "Content/Style/Scss/Pulse.css",
+    "inputFile": "Content/Style/Scss/Pulse.scss"
+  },
+  {
+    "outputFile": "Content/Style/Scss/_variables.css",
+    "inputFile": "Content/Style/Scss/_variables.scss"
+  },
+  {
+    "outputFile": "Content/Style/Scss/_bootswatch.css",
+    "inputFile": "Content/Style/Scss/_bootswatch.scss"
+  }
+]

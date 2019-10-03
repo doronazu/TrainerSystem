@@ -1,0 +1,43 @@
+﻿@model TrainerSystem.ViewModels.UsersViewModel
+@{
+    ViewBag.Title = "משתמשים";
+    Layout = "~/Views/Shared/_TrainerLayout.cshtml";
+}
+
+<h2>רשימת משתמשים</h2>
+@Html.ActionLink("משתמש חדש","RegisterUser", "Account",null, new{@class = "btn btn-outline-primary"})
+<div class="mt-2">
+    <table class="table table-hover table-borderless text-center">
+        <thead>
+            <tr class="table-primary">
+                <th>שם</th>
+                <th>מייל</th>
+                <th>מסלול רכישה</th>
+                <th>הרשאות</th>
+                <th colspan="2">נהל</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in Model.Users)
+            {
+                <tr class="align-middle">
+                    <td><a href="/Account/Details/@user.User.Id" class="btn btn-link">@user.User.Name</a></td>
+                    <td class="align-middle">@user.User.Email</td>
+                    <td class="align-middle">@Model.MembershipTypes.SingleOrDefault(m => m.Id == user.Trainer.MembershipTypeId).Name</td>
+                    <td class="align-middle">@user.Role</td>
+                    <td><a href="/Account/Edit/@user.User.Id" class="btn btn-warning">עריכה</a></td>
+                    <td>
+                        @using (Html.BeginForm("Delete", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                        {
+                            <input type="hidden" class="hide" name="id" id="id" value="@user.User.Id" />
+                            <button type="submit" class="btn btn-danger">מחיקה</button>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+
+

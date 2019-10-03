@@ -1,0 +1,12 @@
+﻿
+@{
+    ViewBag.Title = "ניהול מערכת";
+    Layout = "~/Views/Shared/_TrainerLayout.cshtml";
+}
+
+<h2>@ViewBag.Title</h2>
+
+
+@Html.ActionLink("מתשמשים","Users", "ManageSystem", null,new{@class = "btn btn-outline-info"})
+@Html.ActionLink("כלבים","Dogs", "ManageSystem", null,new{@class = "btn btn-outline-info"})
+

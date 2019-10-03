@@ -1,0 +1,36 @@
+﻿@using TrainerSystem.Models.Application.AppSystem
+@model TrainerSystem.ViewModels.UserToViewModel
+@{
+    ViewBag.Title = "פרטי משתמש";
+    Layout = "~/Views/Shared/_TrainerLayout.cshtml";
+}
+
+<h2>@ViewBag.Title</h2>
+
+
+<div class="mt-4">
+    <table class="table table-hover table-bordered col-4 ">
+        <tbody>
+            <tr><th>מייל</th><td>@Model.User.Email</td></tr>
+            <tr><th>שם</th><td>@Model.User.Name</td></tr>
+            <tr><th>מין</th><td>@Model.Trainer.Sex</td></tr>
+            <tr><th>הרשאות</th><td>@Model.Role</td></tr>
+        </tbody>
+    </table>
+</div>
+<h3>מסלול רכישה</h3>
+<div class="mt-4">
+    <table class="table table-hover table-bordered col-4 ">
+        <tbody>
+            <tr><th>שם</th><td>@Model.Trainer.MembershipType.Name</td></tr>
+            <tr><th>חודשים</th><td>@Model.Trainer.MembershipType.DurationInMonths</td></tr>
+            <tr><th>מחיר</th><td>@Settings.GetNumberSort(Model.Trainer.MembershipType.SignUpFee)</td></tr>
+        </tbody>
+    </table>
+</div>
+<a href="/Account/Edit/@Model.User.Id" class="btn btn-warning ">עריכה</a>
+
+
+
+
+

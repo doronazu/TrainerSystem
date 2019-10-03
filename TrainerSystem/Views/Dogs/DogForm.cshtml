@@ -1,0 +1,99 @@
+﻿@model TrainerSystem.ViewModels.DogFormViewModel
+@{
+    ViewBag.Title = "טופס כלב";
+    Layout = "~/Views/Shared/_TrainerLayout.cshtml";
+
+    string btnValue = "שמור שינויים";
+    string header = "עדכן כלב";
+    string header2 = "ערוך כלב קיים.";
+    if (Model.Dog.Id == 0)
+    {
+        header = "יצירת כלב";
+        header2 = "יצירת כלב חדש.";
+        btnValue = "צור כלב";
+    }
+}
+
+<h2>@header</h2>
+@using (Html.BeginForm("Save", "Dogs", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    <h4>@header2</h4>
+    <hr />
+    @Html.ValidationSummary("", new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.LabelFor(m => m.Dog.Name, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.Dog.Name, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Dog.FoodType, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.Dog.FoodType, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Dog.VeterinarianName, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.Dog.VeterinarianName, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Dog.Weight, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.Dog.Weight, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Dog.Sterilized, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.CheckBoxFor(m => m.Dog.Sterilized, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Dog.Birthdate, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.Dog.Birthdate, new { @class = "form-control",type = "date" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Dog.Sex, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(m => m.Dog.Sex, new SelectList(Model.Genders, "Id", "Name"), "בחר סוג", new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Dog.RaceId, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(m => m.Dog.RaceId, new SelectList(Model.Races, "Id", "Name"), "בחר סוג", new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Dog.DogSizeId, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(m => m.Dog.DogSizeId, new SelectList(Model.DogSizes, "Id", "Name"), "בחר סוג", new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Dog.Note, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextAreaFor(m => m.Dog.Note, new { @class = "form-control" })
+        </div>
+    </div>
+
+    @Html.HiddenFor(c => c.Dog.Id)
+    @Html.HiddenFor(c => c.Dog.CustomerId)
+    @Html.HiddenFor(c => c.Dog.CreateDate)
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" class="btn btn-outline-primary" value="@btnValue" />
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+   
+}

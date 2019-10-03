@@ -1,0 +1,49 @@
+﻿@model TrainerSystem.Models.Application.UploadSystem.FileUpload
+
+
+<div class="container " style="max-width: 25rem">
+
+
+    <h2 id="error" class="text-danger text-center" style="display: none;">משקל מקסימלי של קובץ לא יכול לעבור 6 מגה</h2>
+    @using (Html.BeginForm("Index", "UploadsFiles", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+    {
+
+        <div class="row">
+            <div class="form-group col-3 p-0">
+                <input id="upload" type="submit" class="btn btn-outline-primary" name="upload" value="העלאה" disabled />
+            </div>
+            <div class="custom-file col-9">
+                <input class="custom-file-input" type="file" id="file" name="file" onchange="loadFile(event)" accept="image/*,text/plain,application/msword" />
+                <label id="fileText" class="custom-file-label text-left" for="file">בחר קובץ</label>
+            </div>
+        </div>
+        <div class="form-group">
+            <div id="dynamicImage">
+
+            </div>
+        </div>
+    }
+    <div id="dynamicFiles" class="col-12 pl-3 pr-0">
+
+    </div>
+
+    <div id="copyFile" class="card rounded text-white bg-secondary mb-3 m-auto " style="display: none;max-width: 14rem;">
+        <img style="height: 125px; width: 223px;" src="http://arabimagefoundation.org/images/defaultImage.png" class="card-img-top p-1 fileImage" alt="...">
+        <div class="card-header p-2">
+            <div class="row">
+                <div class="col-8 pl-0 pt-1 ">
+                    <div class="col-12 p-0 card-text small">סוג:<span class="pr-1 fileType ">image/jpeg</span></div>
+                    <div class="col-12 p-0 card-text small">גודל:<span class="pr-1 fileSize">123213</span></div>
+                </div>
+                <div class="col-4 text-center ">
+                    <button class="btn js-del"><i class="far fa-trash-alt fa-2x "></i></button>
+                </div>
+            </div>
+            <p style="font-size: 0.795rem;" class="card-text fileName text-truncate">Some quick example text build.</p>
+        </div>
+    </div>
+
+</div>
+
+
+

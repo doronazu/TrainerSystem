@@ -1,0 +1,43 @@
+﻿@using TrainerSystem.Models.Application.AppSystem
+@model TrainerSystem.ViewModels.CustomerViewModel
+@{
+    ViewBag.Title = "פרטי לקוח";
+    Layout = "~/Views/Shared/_TrainerLayout.cshtml";
+
+    var gander = Settings.Genders.SingleOrDefault(g=>g.Id == Model.Sex);
+    var ganderName = "";
+    if (gander != null){ganderName = gander.Name;}
+    else{ganderName = "חסר";}
+
+}
+
+<h2>@ViewBag.Title</h2>
+
+
+<div class="mt-4">
+    <table class="table table-hover table-bordered col-4 ">
+        <tbody>
+            <tr><th>מייל</th><td>@Model.Email</td></tr>
+            <tr><th>שם</th><td>@Model.Name</td></tr>
+            <tr><th>מין</th><td>@ganderName</td></tr>
+            <tr><th>פלאפון</th><td>@Model.Phone</td></tr>
+            <tr><th>עיר</th><td>@Model.City</td></tr>
+            <tr><th>כתובת</th><td>@Model.Address</td></tr>
+            <tr><th>תאריך לידה</th><td>@Model.Birthdate.Value.ToShortDateString() </td></tr>
+            <tr><th>איך הגעת אלינו</th><td>@Model.HowYouGetUs</td></tr>
+            <tr><th>תאריך יצירה</th><td>@Model.CreateDate.ToShortDateString()</td></tr>
+        </tbody>
+    </table>
+</div>
+<h3>איש קשר</h3>
+<div class="mt-4">
+    <table class="table table-hover table-bordered col-4 ">
+        <tbody>
+            <tr><th>שם</th><td>@Model.ContactName</td></tr>
+            <tr><th>פלאפון</th><td>@Model.ContactPhone</td></tr>
+        </tbody>
+    </table>
+</div>
+<a href="/Customers/Edit/@Model.Id" class="btn btn-warning ">עריכה</a>
+@Html.ActionLink("כלבים","Dogs","Customers",new{@customerId = Model.Id},new{@class = "btn btn-warning"})
+

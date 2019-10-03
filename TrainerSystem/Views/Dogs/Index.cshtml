@@ -1,0 +1,70 @@
+﻿@using TrainerSystem.Models.Application.AppSystem
+@model TrainerSystem.ViewModels.DogsViewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_TrainerLayout.cshtml";
+
+
+    var raceName = "";
+    var customerName = "";
+    var ganderName = "";
+
+
+}
+
+
+<h2>כלבים</h2>
+
+
+<div class="mt-2">
+    <table class="table table-hover table-borderless text-center">
+        <thead>
+            <tr class="table-primary">
+                <th>שם כלב</th>
+                <th>בעלים</th>
+                <th>גזע</th>
+                <th>מין</th>
+                <th colspan="2">נהל</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var dog in Model.Dogs)
+            {
+                raceName = customerName = "";
+
+
+                var race = Model.Races.SingleOrDefault(r => r.Id == dog.RaceId);
+                if (race != null) { raceName = race.Name; }
+                else { raceName = "חסר"; }
+
+                var customer = Model.Customers.SingleOrDefault(c => c.Id == dog.CustomerId);
+                if (customer != null) { customerName = customer.Name; }
+                else { customerName = "חסר"; }
+
+                var gander = Settings.Genders.SingleOrDefault(g => g.Id == dog.Sex);
+                if (gander != null) { ganderName = gander.Name; }
+                else { ganderName = "חסר"; }
+
+                <tr class="align-middle">
+                    <td>
+                        @Html.ActionLink(dog.Name, "Details","Dogs",new{@id = dog.Id },new{ @class = "btn btn-link" })
+                    </td>
+                    <td class="align-middle">@customerName</td>
+                    <td class="align-middle">@raceName</td>
+                    <td class="align-middle">@ganderName</td>
+                    <td>
+                        @Html.ActionLink("עריכה", "Edit", "Dogs", new {@id = dog.Id }, new { @class = "btn btn-warning" })
+                    </td>
+                    <td>
+                        @using (Html.BeginForm("Delete", "Dogs", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                        {
+                            <input type="hidden" class="hide" name="id" id="id" value="@dog.Id" />
+                            <button type="submit" class="btn btn-danger">מחיקה</button>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+

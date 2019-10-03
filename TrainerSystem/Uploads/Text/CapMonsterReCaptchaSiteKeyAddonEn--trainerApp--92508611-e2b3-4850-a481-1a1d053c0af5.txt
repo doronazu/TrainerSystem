@@ -1,0 +1,1 @@
+CapMonsterReCaptchaSiteKeyAddon will be automatically loaded into CapMonster after restarting software.
